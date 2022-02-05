@@ -19,7 +19,7 @@ from pymongo import MongoClient
 from config import MONGO_DB_URI, MUSIC_BOT_NAME
 from Yukki import (BOT_ID, MUSIC_BOT_NAME, SUDOERS, app, boottime,
                    userbot)
-from Yukki.Database import get_gbans_count, get_served_chats, get_sudoers
+from Yukki.Database import get_gbans_count, get_served_chats
 from Yukki.Inline import (stats1, stats2, stats3, stats4, stats5, stats6,
                           stats7)
 from Yukki.Plugins import ALL_MODULES
@@ -125,15 +125,8 @@ async def stats_markup(_, CallbackQuery):
         for chat in chats:
             served_chats.append(int(chat["chat_id"]))
         blocked = await get_gbans_count()
-        sudoers = await get_sudoers()
         modules_loaded = len(ALL_MODULES)
         j = 0
-        for count, user_id in enumerate(sudoers, 0):
-            try:
-                user = await app.get_users(user_id)
-                j += 1
-            except Exception:
-                continue
         smex = f"""
 [•]<u>**Bot Stats**</u>
 
