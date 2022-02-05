@@ -15,7 +15,7 @@ from Yukki import (ASSID, ASSMENTION, ASSNAME, ASSUSERNAME, BOT_ID, BOT_NAME,
 from Yukki.Core.Logger.Log import (startup_delete_last, startup_edit_last,
                                    startup_send_new)
 from Yukki.Core.PyTgCalls.Yukki import run
-from Yukki.Database import get_active_chats, get_sudoers, remove_active_chat
+from Yukki.Database import get_active_chats,  remove_active_chat
 from Yukki.Inline import private_panel
 from Yukki.Plugins import ALL_MODULES
 from Yukki.Utilities.inline import paginate_modules
@@ -126,23 +126,7 @@ async def start_command(_, message):
     if len(message.text.split()) > 1:
         name = (message.text.split(None, 1)[1]).lower()
         if name[0] == "s":
-            sudoers = await get_sudoers()
-            text = "**__Sudo Users List of Bot:-__**\n\n"
             j = 0
-            for count, user_id in enumerate(sudoers, 1):
-                try:
-                    user = await app.get_users(user_id)
-                    user = (
-                        user.first_name if not user.mention else user.mention
-                    )
-                except Exception:
-                    continue
-                text += f"➤ {user}\n"
-                j += 1
-            if j == 0:
-                await message.reply_text("No Sudo Users")
-            else:
-                await message.reply_text(text)
         if name == "help":
             text, keyboard = await help_parser(message.from_user.mention)
             await message.delete()
