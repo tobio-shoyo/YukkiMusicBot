@@ -10,7 +10,7 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
 from Yukki import BOT_ID, MUSIC_BOT_NAME, OWNER_ID, SUDOERS, app
-from Yukki.Database import (add_gban_user, add_off, add_on, add_sudo,
+from Yukki.Database import (add_gban_user, add_off, add_on, 
                             get_active_chats, get_served_chats, get_sudoers,
                             is_gbanned_user, remove_active_chat,
                             remove_gban_user, remove_served_chat, remove_sudo)
@@ -47,116 +47,6 @@ Only for Sudo Users.
 """
 # Add Sudo Users!
 
-
-@app.on_message(filters.command("addsudo") & filters.user(OWNER_ID))
-async def useradd(_, message: Message):
-    if not message.reply_to_message:
-        if len(message.command) != 2:
-            await message.reply_text(
-                "Reply to a user's message or give username/user_id."
-            )
-            return
-        user = message.text.split(None, 1)[1]
-        if "@" in user:
-            user = user.replace("@", "")
-        user = await app.get_users(user)
-        if user.id in SUDOERS:
-            return await message.reply_text(
-                f"{user.mention} is already a sudo user."
-            )
-        added = await add_sudo(user.id)
-        if added:
-            await message.reply_text(
-                f"Added **{user.mention}** to Sudo Users."
-            )
-            os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
-        else:
-            await message.reply_text("Failed")
-        return
-    if message.reply_to_message.from_user.id in SUDOERS:
-        return await message.reply_text(
-            f"{message.reply_to_message.from_user.mention} is already a sudo user."
-        )
-    added = await add_sudo(message.reply_to_message.from_user.id)
-    if added:
-        await message.reply_text(
-            f"Added **{message.reply_to_message.from_user.mention}** to Sudo Users"
-        )
-        os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
-    else:
-        await message.reply_text("Failed")
-    return
-
-
-@app.on_message(filters.command("delsudo") & filters.user(OWNER_ID))
-async def userdel(_, message: Message):
-    if not message.reply_to_message:
-        if len(message.command) != 2:
-            await message.reply_text(
-                "Reply to a user's message or give username/user_id."
-            )
-            return
-        user = message.text.split(None, 1)[1]
-        if "@" in user:
-            user = user.replace("@", "")
-        user = await app.get_users(user)
-        from_user = message.from_user
-        if user.id not in SUDOERS:
-            return await message.reply_text(f"Not a part of Bot's Sudo.")
-        removed = await remove_sudo(user.id)
-        if removed:
-            await message.reply_text(
-                f"Removed **{user.mention}** from {MUSIC_BOT_NAME}'s Sudo."
-            )
-            return os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
-        await message.reply_text(f"Something wrong happened.")
-        return
-    from_user_id = message.from_user.id
-    user_id = message.reply_to_message.from_user.id
-    mention = message.reply_to_message.from_user.mention
-    if user_id not in SUDOERS:
-        return await message.reply_text(
-            f"Not a part of {MUSIC_BOT_NAME}'s Sudo."
-        )
-    removed = await remove_sudo(user_id)
-    if removed:
-        await message.reply_text(
-            f"Removed **{mention}** from {MUSIC_BOT_NAME}'s Sudo."
-        )
-        return os.system(f"kill -9 {os.getpid()} && python3 -m Yukki")
-    await message.reply_text(f"Something wrong happened.")
-
-
-@app.on_message(filters.command("sudolist"))
-async def sudoers_list(_, message: Message):
-    sudoers = await get_sudoers()
-    text = "⭐️<u> **Owners:**</u>\n"
-    sex = 0
-    for x in OWNER_ID:
-        try:
-            user = await app.get_users(x)
-            user = user.first_name if not user.mention else user.mention
-            sex += 1
-        except Exception:
-            continue
-        text += f"{sex}➤ {user}\n"
-    smex = 0
-    for count, user_id in enumerate(sudoers, 1):
-        if user_id not in OWNER_ID:
-            try:
-                user = await app.get_users(user_id)
-                user = user.first_name if not user.mention else user.mention
-                if smex == 0:
-                    smex += 1
-                    text += "\n⭐️<u> **Sudo Users:**</u>\n"
-                sex += 1
-                text += f"{sex}➤ {user}\n"
-            except Exception:
-                continue
-    if not text:
-        await message.reply_text("No Sudo Users")
-    else:
-        await message.reply_text(text)
 
 
 # Restart Yukki
