@@ -11,9 +11,9 @@ from pyrogram.types import Message
 
 from Yukki import BOT_ID, MUSIC_BOT_NAME, OWNER_ID, SUDOERS, app
 from Yukki.Database import (add_gban_user, add_off, add_on, 
-                            get_active_chats, get_served_chats, get_sudoers,
+                            get_active_chats, get_served_chats, 
                             is_gbanned_user, remove_active_chat,
-                            remove_gban_user, remove_served_chat, remove_sudo)
+                            remove_gban_user, remove_served_chat)
 
 __MODULE__ = "SudoUsers"
 __HELP__ = """
@@ -169,7 +169,6 @@ __**New Global Ban on {MUSIC_BOT_NAME}**__
     from_user_mention = message.from_user.mention
     user_id = message.reply_to_message.from_user.id
     mention = message.reply_to_message.from_user.mention
-    sudoers = await get_sudoers()
     if user_id == from_user_id:
         await message.reply_text("You want to block yourself? How Fool!")
     elif user_id == BOT_ID:
@@ -231,7 +230,6 @@ async def unban_globally(_, message):
             user = user.replace("@", "")
         user = await app.get_users(user)
         from_user = message.from_user
-        sudoers = await get_sudoers()
         if user.id == from_user.id:
             await message.reply_text("You want to unblock yourself?")
         elif user.id == BOT_ID:
@@ -249,7 +247,6 @@ async def unban_globally(_, message):
     from_user_id = message.from_user.id
     user_id = message.reply_to_message.from_user.id
     mention = message.reply_to_message.from_user.mention
-    sudoers = await get_sudoers()
     if user_id == from_user_id:
         await message.reply_text("You want to unblock yourself?")
     elif user_id == BOT_ID:
