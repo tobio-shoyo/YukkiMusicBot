@@ -27,7 +27,7 @@ HELPABLE = {}
 
 async def initiate_bot():
     with console.status(
-        "[magenta] Booting up The Yukki Music Bot...",
+        "[magenta] Booting up The Rem Music Bot...",
     ) as status:
         console.print("┌ [red]Clearing MongoDB cache...")
         try:
@@ -78,7 +78,7 @@ async def initiate_bot():
         await asyncio.sleep(2.4)
         await startup_delete_last(_____)
     console.print(
-        "[bold green]Congrats!! Yukki Music Bot has started successfully!\n"
+        "[bold green]Congrats!! Rem Music Bot has started successfully!\n"
     )
     try:
         await app.send_message(
@@ -108,7 +108,7 @@ async def initiate_bot():
         console.print(f"\n[red]Stopping Bot")
         return
     try:
-        await userbot.join_chat("OfficialYukki")
+        await userbot.join_chat("Rem")
     except:
         pass
     console.print(f"\n┌[red] Bot Started as {BOT_NAME}!")
@@ -119,17 +119,6 @@ async def initiate_bot():
     console.print(f"\n[red]Stopping Bot")
 
 
-home_text_pm = f"""Hello ,
-My name is {BOT_NAME}.
-I'm Telegram Voice Chat Audio with some useful features.
-
-All commands can be used with: / """
-
-
-@app.on_message(filters.command("help") & filters.private)
-async def help_command(_, message):
-    text, keyboard = await help_parser(message.from_user.mention)
-    await app.send_message(message.chat.id, text, reply_markup=keyboard)
 
 
 @app.on_message(filters.command("start") & filters.private)
@@ -216,26 +205,6 @@ async def start_command(_, message):
     )
 
 
-async def help_parser(name, keyboard=None):
-    if not keyboard:
-        keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    return (
-        """Hello {first_name},
-
-Click on the buttons for more information.
-
-All commands can be used with: /
-""".format(
-            first_name=name
-        ),
-        keyboard,
-    )
-
-
-@app.on_callback_query(filters.regex("shikhar"))
-async def shikhar(_, CallbackQuery):
-    text, keyboard = await help_parser(CallbackQuery.from_user.mention)
-    await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
