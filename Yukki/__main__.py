@@ -184,7 +184,6 @@ async def start_command(_, message):
             )
     out = private_panel()
     return await message.reply_text(
-        home_text_pm,
         reply_markup=InlineKeyboardMarkup(out[1]),
     )
 
