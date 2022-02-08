@@ -12,13 +12,6 @@ from Yukki import (ASSID, ASSISTANT_PREFIX, ASSNAME, BOT_ID, BOT_USERNAME,
 from Yukki.Database import (approve_pmpermit, disapprove_pmpermit,
                             is_pmpermit_approved)
 
-__MODULE__ = "Assistant"
-__HELP__ = f"""
-
-**Note:**
-- Only for Sudo Users
-
-
 
 {ASSISTANT_PREFIX[0]}block [ Reply to a User Message] 
 - Blocks the User from Assistant Account.
