@@ -15,36 +15,7 @@ from Yukki.Database import (add_gban_user, add_off, add_on,
                             is_gbanned_user, remove_active_chat,
                             remove_gban_user, remove_served_chat)
 
-__MODULE__ = "SudoUsers"
-__HELP__ = """
 
-
-/sudolist 
-    Check the sudo user list of Bot. 
-
-
-**Note:**
-Only for Sudo Users. 
-
-
-/addsudo [Username or Reply to a user]
-- To Add A User In Bot's Sudo Users.
-
-/delsudo [Username or Reply to a user]
-- To Remove A User from Bot's Sudo Users.
-
-/restart 
-- Restart Bot [All downloads, cache, raw files will be cleared too]. 
-
-/maintenance [enable / disable]
-- When enabled Bot goes under maintenance mode. No one can play Music now!
-
-/update 
-- Fetch Updates from Server.
-
-/clean
-- Clean Temp Files and Logs.
-"""
 # Add Sudo Users!
 
 
