@@ -29,36 +29,6 @@ from Yukki.Utilities.youtube import get_yt_info_id
 
 loop = asyncio.get_event_loop()
 
-
-__MODULE__ = "Voice Chat"
-__HELP__ = """
-
-
-/pause
-- Pause the playing music on voice chat.
-
-/resume
-- Resume the paused music on voice chat.
-
-/skip
-- Skip the current playing music on voice chat
-
-/end or /stop
-- Stop the playout.
-
-/queue
-- Check queue list.
-
-
-**Note:**
-Only for Sudo Users
-
-/activevc
-- Check active voice chats on bot.
-
-"""
-
-
 @app.on_message(
     filters.command(["pause", "skip", "resume", "stop", "end"])
     & filters.group
