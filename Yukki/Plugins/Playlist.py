@@ -13,23 +13,6 @@ from Yukki.Inline import (add_genre_markup, check_genre_markup, check_markup,
                           others_markup, play_genre_playlist, playlist_markup,
                           third_playlist_markup)
 
-__MODULE__ = "Playlist"
-__HELP__ = """
-
-/playplaylist 
-- Start playing Your Saved Playlist.
-
-/playlist 
-- Check Your Saved Playlist On Servers.
-
-/delmyplaylist
-- Delete any saved music in your playlist
-
-/delgroupplaylist
-- Delete any saved music in your group's playlist [Requires Admin Rights.]
-
-"""
-
 
 @app.on_message(filters.command("playplaylist"))
 @checker
