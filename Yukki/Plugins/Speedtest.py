@@ -7,13 +7,6 @@ from pyrogram.types import Message
 
 from Yukki import BOT_ID, SUDOERS, app
 
-__MODULE__ = "Speedtest"
-__HELP__ = """
-
-/speedtest 
-- Check Server Latency and Speed.
-
-"""
 
 
 def bytes(size: float) -> str:
